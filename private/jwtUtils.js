@@ -37,7 +37,6 @@ function jwtChecker() {
             return;
         }
 
-
         try {
             if (await jwtVerify(accessToken, accessSecret, {issuer: 'hackcraft_'})) {
                 // if the access token is valid, continue
@@ -61,9 +60,7 @@ function jwtChecker() {
 
                         await JWT.create({refreshToken: newTokens.refreshToken});
 
-                        req.username = (await decodeJwt(accessToken)).username;
-                        req.user = await User.findOne({where: {username: req.username}});
-                        next();
+                        res.redirect(req.originalUrl);
                     }
                 }
             } catch (e) {
