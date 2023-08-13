@@ -36,60 +36,39 @@ async function getTopUsers(req, res, startDate, endDate, number) {
 }
 
 async function getTopFriends(req, res, startDate, endDate, number) {
-    const authUserId = req.user.id;
-    const authUser = await User.findOne({
+    const authUsername = await decodeJwt(req.cookies.accessToken).username;
+
+    const user = await User.findOne({
         where: {
-            id: authUserId
-        },
+            username: authUsername
+        }
+    });
+
+    const friends = await user.getFriends({
         include: [
             {
-                model: User,
-                as: 'Friends',
-                attributes: ['id', 'username'],
-                include: [
-                    {
-                        model: Score,
-                        where: {
-                            createdAt: {
-                                [Op.between]: [startDate, endDate]
-                            }
-                        },
-                    }
-                ],
-            },
-            {
                 model: Score,
+                attributes: ['score', 'createdAt'],
                 where: {
                     createdAt: {
                         [Op.between]: [startDate, endDate]
                     }
-                }
+                },
+                required: false // Use "required: false" to get all users even if they have no scores
             }
+        ],
+        order: [
+            [Score, 'createdAt', 'DESC']
         ]
     });
 
+    friends.splice(number, friends.length - number)
 
-    let friendsWithScores = [];
-
-    for (const friend of authUser.Friends) {
-        friendsWithScores.push(friend)
+    for (const friend of friends) {
+        friend.totalScore = (await friend.getScores()).reduce((total, score) => total + score.score, 0);
     }
 
-    friendsWithScores.push(authUser);
-
-    friendsWithScores.sort((userA, userB) => {
-        const sumScoreA = userA.Scores.reduce((total, score) => total + score.score, 0);
-        const sumScoreB = userB.Scores.reduce((total, score) => total + score.score, 0);
-        return sumScoreB - sumScoreA;
-    });
-
-    friendsWithScores.splice(number, authUser.Friends.length - number)
-
-    for (const friend of friendsWithScores) {
-        friend.totalScore = friend.Scores.reduce((total, score) => total + score.score, 0);
-    }
-
-    return friendsWithScores;
+    return friends;
 }
 
 module.exports = {

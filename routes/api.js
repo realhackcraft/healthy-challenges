@@ -3,6 +3,7 @@ const {User, JWT} = require("../db/models");
 const router = express.Router();
 const jose = require('jose')
 const {createJWT} = require('../private/jwtUtils');
+const {decodeJwt} = require("jose");
 
 router.post('/register', async function (req, res, next) {
     const username = req.body.username;
@@ -24,10 +25,12 @@ router.post('/register', async function (req, res, next) {
         return;
     }
 
-    await User.create({
+    const user = await User.create({
         username: username,
         password: password,
     });
+
+    user.addFriend(user);
 
     const token = await createJWT({username});
 
@@ -70,6 +73,72 @@ router.post('/login', async function (req, res, next) {
     await JWT.create({
         refreshToken: token.refreshToken,
     });
+
+    res.send('ok');
+});
+
+router.post('/friends/add', async function (req, res, next) {
+    const user = await User.findOne({
+        where: {username: await decodeJwt(req.cookies.accessToken).username},
+        include: [
+            {
+                model: User,
+                as: 'Friends',
+                attributes: ['username'],
+            }
+        ]
+    });
+
+    const futureFriend = await User.findOne({
+        where: {username: req.body.friendName},
+    });
+
+    if (!futureFriend) {
+        return;
+    }
+
+    if (user.username === futureFriend.username) {
+        return;
+    }
+
+    if (user.Friends.map(friend => friend.username).includes(futureFriend.username)) {
+        return;
+    }
+
+    const friendsNames = user.Friends.map(friend => friend.username);
+
+    if (friendsNames.includes(futureFriend.username)) {
+        return;
+    }
+
+    user.addFriend(futureFriend);
+    futureFriend.addFriend(user);
+
+    res.send('ok');
+});
+
+router.post('/friends/remove', async function (req, res, next) {
+    const user = await User.findOne({
+        where: {username: await decodeJwt(req.cookies.accessToken).username},
+        include: [
+            {
+                model: User,
+                as: 'Friends',
+                attributes: ['username'],
+            }
+        ]
+    });
+
+    const friend = await User.findOne({
+        where: {username: req.body.friendName},
+    });
+
+    if (!friend) {
+        res.status(404).send('Friend not found');
+    }
+
+    await user.removeFriend(friend);
+    await friend.removeFriend(user);
 
     res.send('ok');
 });

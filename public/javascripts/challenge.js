@@ -26,6 +26,7 @@ fetch("/javascripts/" + type + ".json")
 
             const input = document.createElement('input');
             input.type = challenge.inputType;
+            input.required = true;
 
             if (challenge.inputType === "range") {
                 input.min = challenge.min;
@@ -53,30 +54,5 @@ fetch("/javascripts/" + type + ".json")
 
         const div = document.getElementById('challenge');
         div.appendChild(form);
-
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const inputs = form.getElementsByTagName('input');
-            let valid = true;
-
-            for (let i = 0; i < inputs.length - 1; i++) {
-                const challengeIndex = inputs[i].dataset.index;
-                const challenge = challenges[challengeIndex];
-                const args = challenge.valid.args;
-                const body = challenge.valid.body;
-
-
-                const validate = new Function(args, body);
-                if (!validate(inputs[i].value)) {
-                    valid = false;
-                    break;
-                }
-            }
-
-            if (valid) {
-                score.value = count;
-                form.submit();
-            }
-        });
     })
     .catch((e) => console.error(e));

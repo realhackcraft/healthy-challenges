@@ -1,0 +1,30 @@
+extends ../layout
+
+block scripts
+    p#username.invisible #{user.username}
+    p#visitor-name.invisible #{thisUser.username}
+    script(src='/javascripts/profile.js', defer='defer')
+
+    style.
+        .invisible {
+            display: none;
+        }
+
+
+block content
+    h1
+    p Username:
+    p #{user.username}
+    if user.id !== thisUser.id
+        if friendNames.includes(thisUser.username)
+            button#remove-friend Remove Friend
+        else
+            button#add-friend Add Friend
+    if user.id !== thisUser.id
+        p Their Friends:
+    else
+        p Your Friends:
+    ul
+        each friend in user.Friends
+            li
+                a(href='/account/' + friend.username) #{friend.username}

@@ -1,68 +1,36 @@
 [
   {
     "text": "Do a 10-minute stretching routine:",
-    "inputType": "checkbox",
-    "valid": {
-      "args": "input",
-      "body": "return true;"
-    }
+    "inputType": "checkbox"
   },
   {
     "text": "Practice yoga for 20 minutes:",
-    "inputType": "checkbox",
-    "valid": {
-      "args": "input",
-      "body": "return true;"
-    }
+    "inputType": "checkbox"
   },
   {
     "text": "Take a 15-minute brisk walk and record the distance (in kilometers):",
-    "inputType": "number",
-    "valid": {
-      "args": "input",
-      "body": "return parseFloat(input) >= 0;"
-    }
+    "inputType": "number"
   },
   {
     "text": "Perform a workout of your choice for 5 minutes. How many repetitions did you do?",
-    "inputType": "number",
-    "valid": {
-      "args": "input",
-      "body": "return parseInt(input) >= 0;"
-    }
+    "inputType": "number"
   },
   {
     "text": "Take the stairs instead of the elevator today:",
-    "inputType": "checkbox",
-    "valid": {
-      "args": "input",
-      "body": "return input;"
-    }
+    "inputType": "checkbox"
   },
   {
     "text": "Do 20 minutes of low-intensity aerobic exercise (e.g., walking, cycling) and record your heart rate before and after (b4, after):",
-    "inputType": "text",
-    "valid": {
-      "args": "input",
-      "body": "return /^[0-9]+, [0-9]+$/.test(input);"
-    }
+    "inputType": "text"
   },
   {
     "text": "Try <a href=\"https://www.youtube.com/watch?v=LvV7K_i7aDQ\">video</a> 10-minute guided workout video online. Rate the difficulty:",
     "inputType": "range",
     "min": "1",
-    "max": "100",
-    "valid": {
-      "args": "input",
-      "body": "return true;"
-    }
+    "max": "100"
   },
   {
     "text": "Practice a 5-minute breathing exercise to boost energy. Rate your energy level out of 10 before and after (b4, after):",
-    "inputType": "text",
-    "valid": {
-      "args": "input",
-      "body": "return /^[0-9]+, [0-9]+$/.test(input);"
-    }
+    "inputType": "text"
   }
 ]

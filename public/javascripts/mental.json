@@ -1,74 +1,38 @@
 [
   {
     "text": "Practice deep breathing for 5 minutes:",
-    "inputType": "checkbox",
-    "valid": {
-      "args": "input",
-      "body": "return true;"
-    }
+    "inputType": "checkbox"
   },
   {
     "text": "Write down 3 things you're grateful for today (separate with comma):",
-    "inputType": "text",
-    "valid": {
-      "args": "input",
-      "body": "return input.trim().split(',').length === 3;"
-    }
+    "inputType": "text"
   },
   {
     "text": "Do a 5-minute mindfulness meditation and rate your calmness out of 5:",
-    "inputType": "number",
-    "valid": {
-      "args": "input",
-      "body": "return parseInt(input) >= 1 && parseInt(input) <= 5;"
-    }
+    "inputType": "number"
   },
   {
     "text": "Set aside 10 minutes to journal your thoughts and emotions:",
-    "inputType": "checkbox",
-    "valid": {
-      "args": "input",
-      "body": "return true;"
-    }
+    "inputType": "checkbox"
   },
   {
     "text": "Practice mindfulness and describe how you feel in one word:",
-    "inputType": "text",
-    "valid": {
-      "args": "input",
-      "body": "return input.trim().split(' ').length === 1;"
-    }
+    "inputType": "text"
   },
   {
     "text": "Write a letter to yourself, focusing on self-compassion and kindness:",
-    "inputType": "checkbox",
-    "valid": {
-      "args": "input",
-      "body": "return true;"
-    }
+    "inputType": "checkbox"
   },
   {
     "text": "Spend 10 minutes doing a creative activity like drawing, coloring, or writing:",
-    "inputType": "checkbox",
-    "valid": {
-      "args": "input",
-      "body": "return true;"
-    }
+    "inputType": "checkbox"
   },
   {
     "text": "Reflect on a positive experience from the day and jot down your thoughts:",
-    "inputType": "checkbox",
-    "valid": {
-      "args": "input",
-      "body": "return true;"
-    }
+    "inputType": "checkbox"
   },
   {
     "text": "Listen to a calming playlist or music for 15 minutes:",
-    "inputType": "checkbox",
-    "valid": {
-      "args": "input",
-      "body": "return true;"
-    }
+    "inputType": "checkbox"
   }
 ]
