@@ -2,7 +2,7 @@ const {User, Score} = require("../db/models");
 const {Op} = require("sequelize");
 const {decodeJwt} = require("jose");
 
-async function getTopUsers(req, res, startDate, endDate) {
+async function getTopUsers(req, res, startDate, endDate, number) {
     const usersWithScores = await User.findAll({
         include: [
             {
@@ -26,6 +26,8 @@ async function getTopUsers(req, res, startDate, endDate) {
         return sumScoreB - sumScoreA;
     });
 
+    usersWithScores.splice(number, usersWithScores.length - number)
+
     for (const users of usersWithScores) {
         users.totalScore = users.Scores.reduce((total, score) => total + score.score, 0);
     }
@@ -33,7 +35,7 @@ async function getTopUsers(req, res, startDate, endDate) {
     return usersWithScores;
 }
 
-async function getTopFriends(req, res, startDate, endDate) {
+async function getTopFriends(req, res, startDate, endDate, number) {
     const authUserId = req.user.id;
     const authUser = await User.findOne({
         where: {
@@ -54,21 +56,40 @@ async function getTopFriends(req, res, startDate, endDate) {
                         },
                     }
                 ],
+            },
+            {
+                model: Score,
+                where: {
+                    createdAt: {
+                        [Op.between]: [startDate, endDate]
+                    }
+                }
             }
         ]
     });
 
-    authUser.Friends.sort((userA, userB) => {
+
+    let friendsWithScores = [];
+
+    for (const friend of authUser.Friends) {
+        friendsWithScores.push(friend)
+    }
+
+    friendsWithScores.push(authUser);
+
+    friendsWithScores.sort((userA, userB) => {
         const sumScoreA = userA.Scores.reduce((total, score) => total + score.score, 0);
         const sumScoreB = userB.Scores.reduce((total, score) => total + score.score, 0);
         return sumScoreB - sumScoreA;
     });
 
-    for (const friend of authUser.Friends) {
+    friendsWithScores.splice(number, authUser.Friends.length - number)
+
+    for (const friend of friendsWithScores) {
         friend.totalScore = friend.Scores.reduce((total, score) => total + score.score, 0);
     }
 
-    return authUser.Friends;
+    return friendsWithScores;
 }
 
 module.exports = {

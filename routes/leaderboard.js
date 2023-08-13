@@ -13,7 +13,7 @@ router.get('/topUsers', async function (req, res, next) {
     startDate.setDate(startDate.getDate() - 30);
     const endDate = new Date();
 
-    res.json(await getTopUsers(req, res, startDate, endDate));
+    res.json(await getTopUsers(req, res, startDate, endDate, 10));
 });
 
 router.get('/topMonthlyUsers', async function (req, res, next) {
@@ -21,7 +21,7 @@ router.get('/topMonthlyUsers', async function (req, res, next) {
     startDate.setDate(startDate.getDate() - 30);
     const endDate = new Date();
 
-    res.json(await getTopUsers(req, res, startDate, endDate));
+    res.json(await getTopUsers(req, res, startDate, endDate, 10));
 });
 
 router.get('/topWeeklyUsers', async function (req, res, next) {
@@ -30,7 +30,7 @@ router.get('/topWeeklyUsers', async function (req, res, next) {
 
     const endDate = new Date();
 
-    res.json(await getTopUsers(req, res, startDate, endDate));
+    res.json(await getTopUsers(req, res, startDate, endDate, 10));
 });
 
 router.get('/topFriends', async function (req, res, next) {
@@ -38,7 +38,7 @@ router.get('/topFriends', async function (req, res, next) {
     startDate.setDate(0);
     const endDate = new Date();
 
-    res.json(await getTopFriends(req, res, startDate, endDate));
+    res.json(await getTopFriends(req, res, startDate, endDate, 10));
 });
 
 router.get('/topMonthlyFriends', async function (req, res, next) {
@@ -46,7 +46,7 @@ router.get('/topMonthlyFriends', async function (req, res, next) {
     startDate.setDate(startDate.getDate() - 30);
     const endDate = new Date();
 
-    res.json(await getTopFriends(req, res, startDate, endDate));
+    res.json(await getTopFriends(req, res, startDate, endDate, 10));
 });
 
 router.get('/topWeeklyFriends', async function (req, res, next) {
@@ -54,7 +54,7 @@ router.get('/topWeeklyFriends', async function (req, res, next) {
     startDate.setDate(startDate.getDate() - 7);
     const endDate = new Date();
 
-    res.json(await getTopFriends(req, res, startDate, endDate));
+    res.json(await getTopFriends(req, res, startDate, endDate, 10));
 });
 
 module.exports = router;

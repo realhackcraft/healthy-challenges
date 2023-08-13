@@ -11,3 +11,137 @@ const topMonthlyFriends = await fetch('/leaderboard/topMonthlyFriends').then(res
 console.log(topMonthlyFriends)
 const topWeeklyFriends = await fetch('/leaderboard/topWeeklyFriends').then(res => res.json())
 console.log(topWeeklyFriends)
+
+const leaderboardBody = document.getElementById('leaderboard-body');
+
+const ctx = document.getElementById('leaderboard-chart');
+
+let leaderboardChart;
+let currentUsers = topUsers;
+let currentType = 'users';
+
+function drawChart(users) {
+    if (leaderboardChart) {
+        leaderboardChart.destroy();
+    }
+
+    if (leaderboardBody) {
+        leaderboardBody.innerHTML = '';
+    }
+
+    const userNames = users.map(user => user.username);
+    const userScores = users.map(user => user.totalScore);
+
+    leaderboardChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: userNames,
+            datasets: [{
+                label: 'Score',
+                data: userScores,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: true,
+        }
+    });
+
+    users.forEach((user, index) => {
+        const row = document.createElement('tr');
+        const rankCell = document.createElement('td');
+        rankCell.textContent = (index + 1).toString();
+        const userCell = document.createElement('td');
+        userCell.textContent = user.username;
+        const scoreCell = document.createElement('td');
+        scoreCell.textContent = user.totalScore.toString();
+
+        row.appendChild(rankCell);
+        row.appendChild(userCell);
+        row.appendChild(scoreCell);
+        leaderboardBody.appendChild(row);
+    });
+}
+
+drawChart(currentUsers);
+
+const topUsersButton = document.getElementById('top-users');
+topUsersButton.addEventListener('click', () => {
+    currentType = 'users';
+    currentUsers = topUsers;
+
+    if (currentUsers === topMonthlyFriends) {
+        currentUsers = topMonthlyUsers;
+    } else if (currentUsers === topWeeklyFriends) {
+        currentUsers = topWeeklyUsers;
+    }
+
+    drawChart(currentUsers);
+    topUsersButton.disabled = true;
+    topFriendsButton.disabled = false;
+});
+
+const topFriendsButton = document.getElementById('top-friends');
+topFriendsButton.addEventListener('click', () => {
+    currentType = 'friends';
+    currentUsers = topFriends;
+
+    if (currentUsers === topMonthlyUsers) {
+        currentUsers = topMonthlyFriends;
+    } else if (currentUsers === topWeeklyUsers) {
+        currentUsers = topWeeklyFriends;
+    }
+
+    drawChart(currentUsers);
+    topFriendsButton.disabled = true;
+    topUsersButton.disabled = false;
+});
+
+const topAllTimeButton = document.getElementById('all-time');
+
+topAllTimeButton.addEventListener('click', () => {
+    if (currentType === 'users') {
+        currentUsers = topUsers;
+    } else {
+        currentUsers = topFriends;
+    }
+    drawChart(currentUsers);
+    topAllTimeButton.disabled = true;
+    topMonthlyButton.disabled = false;
+    topWeeklyButton.disabled = false;
+});
+
+const topMonthlyButton = document.getElementById('last-month');
+
+topMonthlyButton.addEventListener('click', () => {
+    if (currentType === 'users') {
+        currentUsers = topMonthlyUsers;
+    } else {
+        currentUsers = topMonthlyFriends;
+    }
+    drawChart(currentUsers);
+    topAllTimeButton.disabled = false;
+    topMonthlyButton.disabled = true;
+    topWeeklyButton.disabled = false;
+})
+
+const topWeeklyButton = document.getElementById('last-week');
+
+topWeeklyButton.addEventListener('click', () => {
+    if (currentType === 'users') {
+        currentUsers = topWeeklyUsers;
+    } else {
+        currentUsers = topWeeklyFriends;
+    }
+    drawChart(currentUsers);
+    topAllTimeButton.disabled = false;
+    topMonthlyButton.disabled = false;
+    topWeeklyButton.disabled = true;
+});
+
+
