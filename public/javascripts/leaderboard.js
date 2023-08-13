@@ -39,17 +39,36 @@ function drawChart(users) {
             datasets: [{
                 label: 'Score',
                 data: userScores,
-                borderWidth: 1
+                borderWidth: 1,
+                backgroundColor: 'rgb(255, 99, 132)',
             }]
         },
         options: {
             scales: {
+                x: {
+                    grid: {
+                        color: 'rgb(243,237,237, 0.2)'
+                    },
+                    ticks: {
+                        color: 'rgb(229,222,222)'
+                    }
+                },
                 y: {
-                    beginAtZero: true,
+                    grid: {
+                        color: 'rgb(243,237,237, 0.2)'
+                    },
+                    ticks: {
+                        color: 'rgb(229,222,222)'
+                    }
                 }
             },
             responsive: true,
-        }
+            plugins: {
+                legend: {
+                    display: false
+                },
+            }
+        },
     });
 
     users.forEach((user, index) => {
