@@ -25,6 +25,11 @@ async function getTopUsers(req, res, startDate, endDate) {
         const sumScoreB = userB.Scores.reduce((total, score) => total + score.score, 0);
         return sumScoreB - sumScoreA;
     });
+
+    for (const users of usersWithScores) {
+        users.totalScore = users.Scores.reduce((total, score) => total + score.score, 0);
+    }
+
     return usersWithScores;
 }
 
@@ -58,6 +63,10 @@ async function getTopFriends(req, res, startDate, endDate) {
         const sumScoreB = userB.Scores.reduce((total, score) => total + score.score, 0);
         return sumScoreB - sumScoreA;
     });
+
+    for (const friend of authUser.Friends) {
+        friend.totalScore = friend.Scores.reduce((total, score) => total + score.score, 0);
+    }
 
     return authUser.Friends;
 }

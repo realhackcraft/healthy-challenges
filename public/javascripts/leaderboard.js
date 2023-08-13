@@ -1,13 +1,13 @@
-try {
+const topUsers = await fetch('/leaderboard/topUsers').then(res => res.json())
+console.log(topUsers)
+const topMonthlyUsers = await fetch('/leaderboard/topMonthlyUsers').then(res => res.json())
+console.log(topMonthlyUsers)
+const topWeeklyUsers = await fetch('/leaderboard/topWeeklyUsers').then(res => res.json())
+console.log(topWeeklyUsers)
 
-    let topMonthlyUsers = await fetch('/leaderboard/topMonthlyUser').then(res => res.json())
-    console.log(topMonthlyUsers)
-} catch (e) {
-    console.log(e)
-}
-// const topWeeklyUsers = await (await fetch('/api/leaderboard/weekly', {method: 'post'})).json()
-//
-// const topMonthlyFriends = await (await fetch('/api/leaderboard/friends/monthly', {method: 'post'})).json()
-// const topWeeklyFriends = await (await fetch('/api/leaderboard/friends/weekly', {method: 'post'})).json()
-//
-
+const topFriends = await fetch('/leaderboard/topFriends').then(res => res.json())
+console.log(topFriends)
+const topMonthlyFriends = await fetch('/leaderboard/topMonthlyFriends').then(res => res.json())
+console.log(topMonthlyFriends)
+const topWeeklyFriends = await fetch('/leaderboard/topWeeklyFriends').then(res => res.json())
+console.log(topWeeklyFriends)

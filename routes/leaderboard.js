@@ -4,7 +4,11 @@ const {Op} = require("sequelize");
 const {getTopUsers, getTopFriends} = require("../private/utils");
 const router = express.Router();
 
-router.get('/topUser', async function (req, res, next) {
+router.get('/', async function (req, res, next) {
+    res.render('leaderboard', {title: 'Leaderboard'});
+});
+
+router.get('/topUsers', async function (req, res, next) {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - 30);
     const endDate = new Date();
@@ -12,7 +16,7 @@ router.get('/topUser', async function (req, res, next) {
     res.json(await getTopUsers(req, res, startDate, endDate));
 });
 
-router.get('/topMonthlyUser', async function (req, res, next) {
+router.get('/topMonthlyUsers', async function (req, res, next) {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - 30);
     const endDate = new Date();
@@ -20,7 +24,7 @@ router.get('/topMonthlyUser', async function (req, res, next) {
     res.json(await getTopUsers(req, res, startDate, endDate));
 });
 
-router.get('/topWeeklyUser', async function (req, res, next) {
+router.get('/topWeeklyUsers', async function (req, res, next) {
     const startDate = new Date()
     startDate.setDate(startDate.getDate() - 7);
 
@@ -29,7 +33,7 @@ router.get('/topWeeklyUser', async function (req, res, next) {
     res.json(await getTopUsers(req, res, startDate, endDate));
 });
 
-router.get('/topFriend', async function (req, res, next) {
+router.get('/topFriends', async function (req, res, next) {
     const startDate = new Date();
     startDate.setDate(0);
     const endDate = new Date();
@@ -37,7 +41,7 @@ router.get('/topFriend', async function (req, res, next) {
     res.json(await getTopFriends(req, res, startDate, endDate));
 });
 
-router.get('/topMonthlyFriend', async function (req, res, next) {
+router.get('/topMonthlyFriends', async function (req, res, next) {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - 30);
     const endDate = new Date();
@@ -45,7 +49,7 @@ router.get('/topMonthlyFriend', async function (req, res, next) {
     res.json(await getTopFriends(req, res, startDate, endDate));
 });
 
-router.get('/topWeeklyFriend', async function (req, res, next) {
+router.get('/topWeeklyFriends', async function (req, res, next) {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - 7);
     const endDate = new Date();

@@ -17,6 +17,9 @@ const User = sequelize.define('User', {
     },
     username: DataTypes.STRING,
     password: DataTypes.STRING,
+    totalScore: {
+        type: DataTypes.VIRTUAL,
+    },
 });
 
 const Friendship = sequelize.define('Friendship', {
