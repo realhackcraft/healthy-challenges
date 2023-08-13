@@ -1,7 +1,7 @@
-const links = document.querySelectorAll('.link');
-
-links.forEach(link => {
-    link.addEventListener('click', () => {
-        window.location.href = link.getAttribute('data-href');
-    });
+const startChallenge = document.getElementById('challenge-form');
+const challengeType = document.getElementById('challenge-type');
+const challengeCount = document.getElementById('challenge-count');
+startChallenge.addEventListener('submit', (e) => {
+    e.preventDefault();
+    window.location.href = '/challenge/' + challengeType.value + '/' + challengeCount.value;
 });

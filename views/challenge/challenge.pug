@@ -1,13 +1,12 @@
-doctype html
-html
-    head
-        title Random Pug Files
-        script(src='/javascripts/challenge.js', defer='defer')
-        p#count.invisible=count
-        p#type.invisible=type
-        style.
-            .invisible {
-                display: none;
-            }
-    body
-        div#challenge
+extends ../layout
+block scripts
+    title Random Pug Files
+    script(src='/javascripts/challenge.js', defer='defer')
+    p#count.invisible=count
+    p#type.invisible=type
+    style.
+        .invisible {
+            display: none;
+        }
+block content
+    div#challenge

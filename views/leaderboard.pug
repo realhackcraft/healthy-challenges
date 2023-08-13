@@ -19,13 +19,14 @@ block scripts
 block content
     div.wrapper
         h1 Leaderboard
-        button#top-users Top Users
-        button#top-friends Top Friends
+        div
+            button#top-users.link Top Users
+            button#top-friends.link Top Friends
         br
-        br
-        button#all-time All Time
-        button#last-month Last Month
-        button#last-week Last Week
+        div
+            button#all-time.link All Time
+            button#last-month.link Last Month
+            button#last-week.link Last Week
         div.chart-container
             canvas#leaderboard-chart(width='400', height='400')
         table

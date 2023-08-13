@@ -1,8 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap');
+
+* {
+    font-family: 'Nunito', sans-serif;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    background: steelblue;
+    color: antiquewhite;
+}
+
+h1 {
+    font-size: 4rem;
+    font-weight: 900;
+}
+
+h2 {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+p {
+    font-size: 2.5rem;
+    font-weight: 600;
 }
 
 a {
-  color: #00B7FF;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+button {
+    font-size: 1rem;
+    font-weight: 600;
+    background: slateblue;
+    color: palegreen;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 0.5em;
+}
+
+.link {
+    background-image: linear-gradient(
+            to right,
+            palegreen 50%,
+            palegreen 50%,
+            antiquewhite 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    position: relative;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.7s ease-in-out;
+}
+
+.link:before {
+    content: '';
+    background: palegreen;
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    border-radius: 1em;
+    transition: all 0.5s ease-in-out;
+}
+
+.link:hover:not(:disabled) {
+    background-position: 0;
+}
+
+.link:hover:not(:disabled)::before {
+    width: 100%;
 }

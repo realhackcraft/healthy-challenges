@@ -2,48 +2,155 @@ extends layout
 
 block scripts
     script(src='javascripts/index.js', defer='defer', type='module')
+    script(src='https://kit.fontawesome.com/a1333e4397.js', crossorigin='anonymous')
     style.
+
         nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 0 2em;
-            background-color: #f5f5f5;
+            background-color: steelblue;
             top: 0;
-            z-index: 1;
             position: fixed;
+            width: 100%;
+            z-index: 100;
         }
 
         .left {
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-right: auto;
         }
 
         .right {
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #healthy {
+            color: palevioletred;
+        }
+
+        #challenges {
+            color: paleturquoise;
+        }
+
+        #playing-as {
+            color: palegreen;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5em;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        #account-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5em;
+            width: 100em;
+            height: 4em;
+        }
+
+        input[type=number] {
+            width: 5em;
+            height: 2em;
+            font-size: 1.5em;
+            text-align: center;
+            border: none;
+            border-radius: 0.5em;
+            background: steelblue;
+            color: antiquewhite;
+            -moz-appearance: textfield; /* Firefox */
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        select {
+            width: 10em;
+            height: 2em;
+            font-size: 1.5em;
+            text-align: center;
+            border: none;
+            border-radius: 0.5em;
+            background: steelblue;
+            color: antiquewhite;
+        }
+
+        input[type=submit] {
+            width: 5em;
+            height: 2em;
+            font-size: 1.5em;
+            text-align: center;
+            border: none;
+            border-radius: 0.5em;
+            background: steelblue;
+            color: antiquewhite;
+        }
+
+        *:focus {
+            outline: 0;
         }
 
 block content
     nav
-    div.left
-        if user
-            h1 Healthy Challenges, playing as #{user.username}
-        else
-            h1 Healthy Challenges
-    div.right
-        if user
-            button.link(data-href='/leaderboard') Leaderboard
-        button.link(data-href='/account/login') Login
-        button.link(data-href='/account/register') Register
+        div.left
+            if user
+                h1
+                    span#healthy Healthy
+                    span#challenges Challenges
+                    span ,
+                    br
+                    span#playing-as playing as #{user.username}
+            else
+                h1
+                    span#healthy Healthy
+                    span#challenges Challenges
+        div.right
+            if user
+                a.link(href='/leaderboard') Leaderboard
+            a.link(href='/account/login') Login
+            a.link(href='/account/register') Register
 
     div#main
         h2 Welcome to Healthy Challenges!
-        h3 What is Healthy Challenges?
-        p Healthy Challenges is a web application that allows you to participate in challenges that heps you stay healthy with your friends! There are three types of challenges: those that improves mental health, those that improves physical health, and, if you are feeling adventurous, those that improves both mental and physical health!
-        h3 Can I play with my friends?
-        p Yes! You can add your friends and see their progress on the leaderboard. You can also see the top users and top friends on the leaderboard.
-        h3 How do I participate in a challenge?
-        p First, you need to register an account. Then, you can configure the challenge you want today with the helper on the main page (here!). When you finish a challenge, you will get some points and be redirected to the main page.
+        h3#account-wrapper
+            if !user
+                a.link Create an account to get started
+            else
+                form#challenge-form
+                    input(id='challenge-count', type='number', value='3')
+
+                    select(id='challenge-type' name='challenge-type')
+                        option(value='mental') Mental Challenge(s)
+                        option(value='physical') Physical Challenge(s)
+                        option(value='both') Mixed Challenge(s)
+
+                        br
+
+                        input(type='submit', value='GO!')
+
+        h2 Features
+        h3 Connectivity
+        p You can add your friends and see their scores on the leaderboard! You can also see the top users and top friends on the leaderboard.
+        h3 Leaderboard
+        p The leaderboard allows you to see the users with the most points! You can also compete with your friends to see who has the most points.
+        h3 Challenges
+        p The challenges are a curated list of activities that can help you achieve mental or physical health. You can complete these challenges to earn points!
