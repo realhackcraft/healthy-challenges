@@ -1,0 +1,88 @@
+[
+  {
+    "text": "Do a 10-minute stretching routine:",
+    "inputType": "checkbox",
+    "valid": {
+      "args": "input",
+      "body": "return true;"
+    }
+  },
+  {
+    "text": "Practice deep breathing for 5 minutes:",
+    "inputType": "checkbox",
+    "valid": {
+      "args": "input",
+      "body": "return true;"
+    }
+  },
+  {
+    "text": "Take a 15-minute brisk walk and record the distance (in kilometers):",
+    "inputType": "number",
+    "valid": {
+      "args": "input",
+      "body": "return parseFloat(input) >= 0;"
+    }
+  },
+  {
+    "text": "Write down 3 things you're grateful for today (separate with comma):",
+    "inputType": "text",
+    "valid": {
+      "args": "input",
+      "body": "return input.trim().split(',').length === 3;"
+    }
+  },
+  {
+    "text": "Perform a 5-minute bodyweight workout. How many repetitions of push-ups did you do?",
+    "inputType": "number",
+    "valid": {
+      "args": "input",
+      "body": "return parseInt(input) >= 0;"
+    }
+  },
+  {
+    "text": "Take the stairs instead of the elevator today:",
+    "inputType": "radio",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "valid": {
+      "args": "input",
+      "body": "return ['Yes', 'No'].includes(input);"
+    }
+  },
+  {
+    "text": "Do 20 minutes of low-intensity aerobic exercise (e.g., walking, cycling) and record your heart rate before and after (separate with comma):",
+    "inputType": "text",
+    "valid": {
+      "args": "input",
+      "body": "return /^[0-9]+,[0-9]+$/.test(input);"
+    }
+  },
+  {
+    "text": "Practice mindfulness and describe how you feel in one word:",
+    "inputType": "text",
+    "valid": {
+      "args": "input",
+      "body": "return input.trim().split(' ').length === 1;"
+    }
+  },
+  {
+    "text": "Try a 10-minute guided workout video online. Rate the difficulty out of 5:",
+    "inputType": "range",
+    "min": "1",
+    "max": "5",
+    "valid": {
+      "args": "input",
+      "body": "return parseInt(input) >= 1 && parseInt(input) <= 5;"
+    }
+  },
+  {
+    "text": "Spend 10 minutes doing a creative activity like drawing, coloring, or writing:",
+    "inputType": "checkbox",
+    "valid": {
+      "args": "input",
+      "body": "return true;"
+    }
+  }
+]
