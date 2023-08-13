@@ -59,10 +59,16 @@ router.post('/login', async function (req, res, next) {
     });
 
     if (existingUsers.length !== 1) {
-        return;
+        res.status(401).send('Unauthorized');
     }
 
-    await JWT.destroy({where: {refreshToken: req.cookies.refreshToken}})
+    if (req.cookies.refreshToken) {
+        await JWT.destroy({where: {refreshToken: req.cookies.refreshToken}})
+    }
+
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
+
 
     const token = await createJWT({username});
 

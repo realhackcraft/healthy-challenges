@@ -1,0 +1,49 @@
+extends layout
+
+block scripts
+    script(src='javascripts/index.js', defer='defer', type='module')
+    style.
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2em;
+            background-color: #f5f5f5;
+            top: 0;
+            z-index: 1;
+            position: fixed;
+        }
+
+        .left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+block content
+    nav
+    div.left
+        if user
+            h1 Healthy Challenges, playing as #{user.username}
+        else
+            h1 Healthy Challenges
+    div.right
+        if user
+            button.link(data-href='/leaderboard') Leaderboard
+        button.link(data-href='/account/login') Login
+        button.link(data-href='/account/register') Register
+
+    div#main
+        h2 Welcome to Healthy Challenges!
+        h3 What is Healthy Challenges?
+        p Healthy Challenges is a web application that allows you to participate in challenges that heps you stay healthy with your friends! There are three types of challenges: those that improves mental health, those that improves physical health, and, if you are feeling adventurous, those that improves both mental and physical health!
+        h3 Can I play with my friends?
+        p Yes! You can add your friends and see their progress on the leaderboard. You can also see the top users and top friends on the leaderboard.
+        h3 How do I participate in a challenge?
+        p First, you need to register an account. Then, you can configure the challenge you want today with the helper on the main page (here!). When you finish a challenge, you will get some points and be redirected to the main page.
