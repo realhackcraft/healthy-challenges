@@ -1,0 +1,9 @@
+extends layout
+
+block scripts
+    script(src='/javascripts/leaderboard.js', defer='defer', type='module')
+
+block content
+    h1 Leaderboard
+    p#leaderboard
+        | Loading...

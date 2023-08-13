@@ -1,7 +1,8 @@
 const {User, Score} = require("../db/models");
 const {Op} = require("sequelize");
+const {decodeJwt} = require("jose");
 
-async function getTopUsers(res, req, startDate, endDate) {
+async function getTopUsers(req, res, startDate, endDate) {
     const usersWithScores = await User.findAll({
         include: [
             {
@@ -18,14 +19,16 @@ async function getTopUsers(res, req, startDate, endDate) {
         attributes: ['id', 'username']
     });
 
+// Sort users based on the sum of scores within the time period
     usersWithScores.sort((userA, userB) => {
         const sumScoreA = userA.Scores.reduce((total, score) => total + score.score, 0);
         const sumScoreB = userB.Scores.reduce((total, score) => total + score.score, 0);
         return sumScoreB - sumScoreA;
     });
+    return usersWithScores;
 }
 
-async function getTopFriends(res, req, startDate, endDate) {
+async function getTopFriends(req, res, startDate, endDate) {
     const authUserId = req.user.id;
     const authUser = await User.findOne({
         where: {
@@ -56,7 +59,7 @@ async function getTopFriends(res, req, startDate, endDate) {
         return sumScoreB - sumScoreA;
     });
 
-    res.json(authUser.Friends);
+    return authUser.Friends;
 }
 
 module.exports = {
