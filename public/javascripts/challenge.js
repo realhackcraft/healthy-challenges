@@ -24,31 +24,16 @@ fetch("/javascripts/" + type + ".json")
             label.innerHTML = challenge.text;
             form.appendChild(label);
 
-            if (challenge.inputType === "radio") {
-                challenge.options.forEach((option) => {
-                    const radioLabel = document.createElement('label');
-                    radioLabel.innerHTML = option;
+            const input = document.createElement('input');
+            input.type = challenge.inputType;
 
-                    const radioInput = document.createElement('input');
-                    radioInput.type = "radio";
-                    radioInput.name = "challenge_" + challengeIndex;
-                    radioInput.value = option;
-
-                    form.appendChild(radioInput);
-                    form.appendChild(radioLabel);
-                });
-            } else {
-                const input = document.createElement('input');
-                input.type = challenge.inputType;
-
-                if (challenge.inputType === "range") {
-                    input.min = challenge.min;
-                    input.max = challenge.max;
-                }
-
-                input.dataset.index = challengeIndex;
-                form.appendChild(input);
+            if (challenge.inputType === "range") {
+                input.min = challenge.min;
+                input.max = challenge.max;
             }
+
+            input.dataset.index = challengeIndex;
+            form.appendChild(input);
 
             const br = document.createElement('br');
             const br2 = document.createElement('br');
@@ -61,6 +46,10 @@ fetch("/javascripts/" + type + ".json")
         const submit = document.createElement('input');
         submit.type = 'submit';
         form.appendChild(submit);
+
+        const score = document.createElement('input');
+        score.type = 'hidden';
+        form.appendChild(score);
 
         const div = document.getElementById('challenge');
         div.appendChild(form);
@@ -85,6 +74,7 @@ fetch("/javascripts/" + type + ".json")
             }
 
             if (valid) {
+                score.value = count;
                 form.submit();
             }
         });

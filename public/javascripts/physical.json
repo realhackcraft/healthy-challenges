@@ -33,14 +33,10 @@
   },
   {
     "text": "Take the stairs instead of the elevator today:",
-    "inputType": "radio",
-    "options": [
-      "Yes",
-      "No"
-    ],
+    "inputType": "checkbox",
     "valid": {
       "args": "input",
-      "body": "return true;"
+      "body": "return input;"
     }
   },
   {

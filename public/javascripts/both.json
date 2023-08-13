@@ -40,18 +40,6 @@
     }
   },
   {
-    "text": "Take the stairs instead of the elevator today:",
-    "inputType": "radio",
-    "options": [
-      "Yes",
-      "No"
-    ],
-    "valid": {
-      "args": "input",
-      "body": "return ['Yes', 'No'].includes(input);"
-    }
-  },
-  {
     "text": "Do 20 minutes of low-intensity aerobic exercise (e.g., walking, cycling) and record your heart rate before and after (separate with comma):",
     "inputType": "text",
     "valid": {

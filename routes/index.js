@@ -13,7 +13,7 @@ router.get('/challenge/:type/:count', function (req, res, next) {
 router.post('/submit', async function (req, res, next) {
     await Score.create({
         userId: req.user.id,
-        score: 100,
+        score: req.body.score,
         timestamp: new Date()
     });
 });
