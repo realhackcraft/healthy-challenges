@@ -66,30 +66,6 @@ Score.belongsTo(User, {foreignKey: 'userId'});
         await sequelize.sync();
     } else if (process.argv[2] === "force") {
         await sequelize.sync({force: true});
-        await User.bulkCreate([
-            {username: 'user1', password: 'a'},
-            {username: 'user2', password: 'a'},
-            {username: 'user3', password: 'a'},
-            {username: 'user4', password: 'a'},
-            {username: 'user5', password: 'a'},]);
-
-        await Friendship.bulkCreate([
-            {userId: 1, FriendId: 2},
-            {userId: 2, FriendId: 1},
-            {userId: 1, FriendId: 3},
-            {userId: 1, FriendId: 4},
-            {userId: 1, FriendId: 5},]);
-
-        await Score.bulkCreate([
-            {userId: 1, score: 2},
-            {userId: 1, score: 3},
-            {userId: 2, score: 4},
-            {userId: 2, score: 5},
-            {userId: 3, score: 6},
-            {userId: 3, score: 7},
-            {userId: 4, score: 8},
-            {userId: 4, score: 9},]);
-
     } else if (process.argv[2] === "alter") {
         await sequelize.sync({alter: true});
     }
