@@ -5,9 +5,17 @@
 }
 
 body {
-    padding: 50px;
     background: steelblue;
     color: antiquewhite;
+}
+
+main {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5em;
 }
 
 h1 {
@@ -85,3 +93,65 @@ button {
 .link:hover:not(:disabled)::before {
     width: 100%;
 }
+
+label {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+input[type='checkbox'], input[type='radio'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-left: 1em;
+    margin-right: 1em;
+    border: palevioletred 0.3em solid;
+    border-radius: 0.5em;
+    background: antiquewhite;
+    transition: all 0.2s ease-in-out;
+}
+
+input[type='checkbox']:checked, input[type='radio']:checked {
+    background: palegreen;
+}
+
+input[type='text'] {
+    font-size: 2rem;
+    font-weight: 600;
+    border: palevioletred 0.2em solid;
+    border-radius: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin: 0.5em;
+    color: antiquewhite;
+    background: dodgerblue;
+    transition: all 0.2s ease-in-out;
+}
+
+input[type='text']:focus {
+    background: palevioletred;
+    outline: none;
+}
+
+input[type='submit'] {
+    font-size: 2rem;
+    font-weight: 600;
+    border: palevioletred 0.2em solid;
+    border-radius: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin: 0.5em;
+    color: antiquewhite;
+    background: dodgerblue;
+    transition: all 0.2s ease-in-out;
+}
+
+input[type='submit']:hover {
+    background: palevioletred;
+    color: dodgerblue;
+    outline: none;
+}
+
+

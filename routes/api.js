@@ -40,7 +40,7 @@ router.post('/register', async function (req, res, next) {
         refreshToken: token.refreshToken,
     });
 
-    res.redirect('/challenge/both/2');
+    res.redirect('/');
 });
 
 router.post('/login', async function (req, res, next) {
@@ -79,7 +79,7 @@ router.post('/login', async function (req, res, next) {
         refreshToken: token.refreshToken,
     });
 
-    res.send('ok');
+    res.redirect('/')
 });
 
 router.post('/friends/add', async function (req, res, next) {

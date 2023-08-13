@@ -17,6 +17,8 @@ router.post('/submit', async function (req, res, next) {
         userId: user.id,
         score: req.query.count,
     });
+
+    res.redirect('/');
 });
 
 module.exports = router;
