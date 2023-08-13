@@ -8,6 +8,7 @@ const {jwtChecker} = require('./private/jwtUtils');
 const indexRouter = require('./routes/index');
 const accountRouter = require('./routes/account');
 const apiRouter = require('./routes/api');
+const leaderboardRouter = require('./routes/leaderboard');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use('/api', apiRouter);
 
 app.use(jwtChecker());
 app.use('/', indexRouter);
+app.use('/leaderboard', leaderboardRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

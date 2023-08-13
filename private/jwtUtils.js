@@ -1,5 +1,5 @@
 const {decodeJwt, SignJWT, jwtVerify} = require("jose");
-const {JWT} = require("../db/models");
+const {JWT, User} = require("../db/models");
 const accessSecret = new TextEncoder().encode(
     'IckmATNnVyRkUggTy3oeJZmsfvcgTNe5Axw0rKHo4t8MP+MaDg+FgG3UtjcHuLIsR+9MSjCzSiz2DSG0eXQeOw==',
 )
@@ -15,7 +15,7 @@ async function createJWT(user) {
             .setProtectedHeader({alg})
             .setIssuedAt()
             .setIssuer('hackcraft_')
-            .setExpirationTime('30s')
+            .setExpirationTime('15m')
             .sign(accessSecret),
         refreshToken: await new SignJWT(user)
             .setProtectedHeader({alg})
@@ -41,6 +41,8 @@ function jwtChecker() {
         try {
             if (await jwtVerify(accessToken, accessSecret, {issuer: 'hackcraft_'})) {
                 // if the access token is valid, continue
+                req.username = (await decodeJwt(accessToken)).username;
+                req.user = await User.findOne({where: {username: req.username}});
                 next();
             }
         } catch (e) {
@@ -52,10 +54,15 @@ function jwtChecker() {
                         const decoded = await decodeJwt(refreshToken);
                         const newTokens = await createJWT({username: decoded.username});
 
+                        await JWT.destroy({where: {refreshToken}});
+
                         res.cookie('accessToken', newTokens.accessToken, {httpOnly: true});
                         res.cookie('refreshToken', newTokens.refreshToken, {httpOnly: true});
 
-                        await JWT.destroy({where: {refreshToken}});
+                        await JWT.create({refreshToken: newTokens.refreshToken});
+
+                        req.username = (await decodeJwt(accessToken)).username;
+                        req.user = await User.findOne({where: {username: req.username}});
                         next();
                     }
                 }

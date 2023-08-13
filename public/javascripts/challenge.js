@@ -7,7 +7,8 @@ fetch("/javascripts/" + type + ".json")
         const count = parseInt(document.getElementById('count').innerText);
 
         const form = document.createElement('form');
-        form.action = '/submit';
+        form.action = '/submit?count=' + count;
+        form.method = 'POST';
         const existingChallenges = [];
 
         for (let i = 0; i < count; i++) {
@@ -72,8 +73,12 @@ fetch("/javascripts/" + type + ".json")
             for (let i = 0; i < inputs.length - 1; i++) {
                 const challengeIndex = inputs[i].dataset.index;
                 const challenge = challenges[challengeIndex];
+                const args = challenge.valid.args;
+                const body = challenge.valid.body;
 
-                if (!new Function(challenge.valid.args, challenge.valid.body)(inputs[i].value)) {
+
+                const validate = new Function(args, body);
+                if (!validate(inputs[i].value)) {
                     valid = false;
                     break;
                 }
