@@ -1,7 +1,6 @@
 const express = require('express');
 const {User, JWT} = require("../db/models");
 const router = express.Router();
-const jose = require('jose')
 const {createJWT} = require('../private/jwtUtils');
 const {decodeJwt} = require("jose");
 

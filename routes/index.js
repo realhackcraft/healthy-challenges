@@ -1,5 +1,5 @@
 const express = require('express');
-const {Point, User, Score} = require("../db/models");
+const {User, Score} = require("../db/models");
 const {decodeJwt} = require("jose");
 const router = express.Router();
 

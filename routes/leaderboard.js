@@ -1,6 +1,4 @@
 const express = require('express');
-const {User, JWT, sequelize, Score} = require("../db/models");
-const {Op} = require("sequelize");
 const {getTopUsers, getTopFriends} = require("../private/utils");
 const router = express.Router();
 
