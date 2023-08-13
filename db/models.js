@@ -5,7 +5,7 @@ const sequelize = new Sequelize({
     port: 8889,
     username: 'admin',
     password: 'secretpassword',
-    database: 'challenging-health',
+    database: 'healthy-challenges',
     dialect: 'mysql',
 });
 
