@@ -3,22 +3,35 @@ extends layout
 block scripts
     script(src='https://cdn.jsdelivr.net/npm/chart.js')
     script(src='/javascripts/leaderboard.js', defer='defer', type='module')
+    style.
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        th {
+            margin: 0 2em;
+        }
+
 
 block content
-    h1 Leaderboard
-    button#top-users Top Users
-    button#top-friends Top Friends
-    br
-    br
-    button#all-time All Time
-    button#last-month Last Month
-    button#last-week Last Week
-    div.chart-container(style='position: relative; height:40vh; width:80vw')
-        canvas#leaderboard-chart(width='400', height='400')
-    table
-        thead
-            tr
-                th Rank
-                th User
-                th Score
-        tbody#leaderboard-body
+    div.wrapper
+        h1 Leaderboard
+        button#top-users Top Users
+        button#top-friends Top Friends
+        br
+        br
+        button#all-time All Time
+        button#last-month Last Month
+        button#last-week Last Week
+        div.chart-container
+            canvas#leaderboard-chart(width='400', height='400')
+        table
+            thead
+                tr
+                    th Rank
+                    th User
+                    th Score
+            tbody#leaderboard-body

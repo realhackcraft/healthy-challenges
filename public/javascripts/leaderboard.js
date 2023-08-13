@@ -45,7 +45,7 @@ function drawChart(users) {
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
                 }
             },
             responsive: true,
