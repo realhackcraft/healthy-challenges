@@ -1,5 +1,5 @@
 const express = require('express');
-const {User} = require("../db/models");
+const {User, JWT} = require("../db/models");
 const {decodeJwt} = require("jose");
 const router = express.Router();
 
@@ -9,6 +9,37 @@ router.get('/login', function (req, res, next) {
 
 router.get('/register', function (req, res, next) {
     res.render('account/register', {title: 'Register'});
+});
+
+
+router.get('/logout', async function (req, res, next) {
+    const username = decodeJwt(req.cookies.accessToken).username;
+
+    const user = await User.findOne({
+        where: {
+            username
+        }
+    });
+
+    if (!user) {
+        res.sendStatus(401);
+        return;
+    }
+
+    if (!req.cookies.refreshToken) {
+        res.sendStatus(401);
+        return;
+    }
+
+    await JWT.destroy({
+        where: {
+            refreshToken: req.cookies.refreshToken
+        }
+    });
+
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
+    res.redirect('/');
 });
 
 router.get('/:username', async function (req, res, next) {
@@ -22,7 +53,7 @@ router.get('/:username', async function (req, res, next) {
                     attributes: ['username']
                 }],
         });
-    
+
     let friendNames = user.Friends.map(friend => friend.username);
 
     const thisUser = await User.findOne({where: {username: (await decodeJwt(req.cookies.accessToken)).username}});

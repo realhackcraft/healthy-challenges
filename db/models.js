@@ -12,12 +12,12 @@ const sequelize = new Sequelize({
     password: process.env.AZURE_MYSQL_PASSWORD,
     database: process.env.AZURE_MYSQL_DATABASE,
     dialect: 'mysql',
-    ssl: true,
-    dialectOptions: {
-        ssl: {
-            ca: fs.readFileSync(join(__dirname, '../DigiCertGlobalRootCA.crt.pem')),
-        }
-    }
+    // ssl: true,
+    // dialectOptions: {
+    //     ssl: {
+    //         ca: fs.readFileSync(join(__dirname, '../DigiCertGlobalRootCA.crt.pem')),
+    //     }
+    // }
 });
 
 const User = sequelize.define('User', {

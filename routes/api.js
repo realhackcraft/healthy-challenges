@@ -48,6 +48,7 @@ router.post('/login', async function (req, res, next) {
     const password = req.body.password;
 
     if (!username || !password) {
+        res.sendStatus(401);
         return;
     }
 
@@ -59,7 +60,8 @@ router.post('/login', async function (req, res, next) {
     });
 
     if (existingUsers.length !== 1) {
-        res.status(401).send('Unauthorized');
+        res.sendStatus(401);
+        return;
     }
 
     if (req.cookies.refreshToken) {
@@ -139,7 +141,7 @@ router.post('/friends/remove', async function (req, res, next) {
     });
 
     if (!friend) {
-        res.status(404).send('Friend not found');
+        res.sendStatus(404);
     }
 
     await user.removeFriend(friend);

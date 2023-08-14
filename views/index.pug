@@ -4,50 +4,6 @@ block scripts
     script(src='javascripts/index.js', defer='defer', type='module')
     script(src='https://kit.fontawesome.com/a1333e4397.js', crossorigin='anonymous')
     style.
-
-        nav {
-            display: flex;
-            padding: 0 2em;
-            background-color: steelblue;
-            top: 0;
-            position: fixed;
-            width: 100vw;
-            z-index: 100;
-            margin: 0;
-        }
-
-        .left {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: auto;
-        }
-
-        .right {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        #healthy {
-            color: palevioletred;
-        }
-
-        #challenges {
-            color: paleturquoise;
-        }
-
-        #playing-as {
-            color: palegreen;
-        }
-
-        h1 {
-            font-size: 3em;
-            margin: 0;
-        }
-
         #account-wrapper {
             display: flex;
             flex-direction: column;
@@ -129,48 +85,28 @@ block scripts
         }
 
 block content
-    nav
-        div.left
-            if user
-                h1.bob
-                    span#healthy Healthy
-                    span#challenges Challenges,
+    h2.float Welcome to Healthy Challenges!
+    h3#account-wrapper
+        if !user
+            a.link(href='/register') Create an account to get started
+        else
+            form#challenge-form
+                input(id='challenge-count', type='number', value='3', min='1', max='10')
+
+                select(id='challenge-type' name='challenge-type')
+                    option(value='select') Select Challenge Type
+                    option(value='mental') Mental Challenge(s)
+                    option(value='physical') Physical Challenge(s)
+                    option(value='both') Mixed Challenge(s)
+
                     br
-                    span#playing-as playing as #{user.username}
-            else
-                h1.bob
-                    span#healthy Healthy
-                    span#challenges Challenges
-        div.right
-            if user
-                a.link(href='/leaderboard') Leaderboard
-            else
-                a.link(href='/account/login') Login
-                a.link(href='/account/register') Register
 
-    main
-        h2.float Welcome to Healthy Challenges!
-        h3#account-wrapper
-            if !user
-                a.link(href='/register') Create an account to get started
-            else
-                form#challenge-form
-                    input(id='challenge-count', type='number', value='3', min='1', max='10')
+                    input(type='submit', value='GO!')
 
-                    select(id='challenge-type' name='challenge-type')
-                        option(value='select') Select Challenge Type
-                        option(value='mental') Mental Challenge(s)
-                        option(value='physical') Physical Challenge(s)
-                        option(value='both') Mixed Challenge(s)
-
-                        br
-
-                        input(type='submit', value='GO!')
-
-        h2 Features
-        h3 Connectivity
-        p You can add your friends and see their scores on the leaderboard! You can also see the top users and top friends on the leaderboard.
-        h3 Leaderboard
-        p The leaderboard allows you to see the users with the most points! You can also compete with your friends to see who has the most points.
-        h3 Challenges
-        p The challenges are a curated list of activities that can help you achieve mental or physical health. You can complete these challenges to earn points!
+    h2 Features
+    h3 Connectivity
+    p You can add your friends and see their scores on the leaderboard! You can also see the top users and top friends on the leaderboard.
+    h3 Leaderboard
+    p The leaderboard allows you to see the users with the most points! You can also compete with your friends to see who has the most points.
+    h3 Challenges
+    p The challenges are a curated list of activities that can help you achieve mental or physical health. You can complete these challenges to earn points!

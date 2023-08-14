@@ -209,3 +209,57 @@ button {
     padding-right: 0.5em;
     margin: 0.5em;
 }
+
+nav {
+    display: flex;
+    padding: 0 2em;
+    background-color: steelblue;
+    top: 0;
+    position: fixed;
+    width: 100vw;
+    z-index: 100;
+    margin: 0;
+}
+
+.left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+}
+
+.right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#healthy {
+    color: palevioletred;
+}
+
+#challenges {
+    color: paleturquoise;
+}
+
+#playing-as {
+    color: palegreen;
+}
+
+h1 {
+    font-size: 3em;
+    margin: 0;
+}
+
+#logo {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+#logo:hover {
+    cursor: pointer;
+}
