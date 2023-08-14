@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const {Sequelize, DataTypes} = require("sequelize");
+const {join} = require("path");
 
 const sequelize = new Sequelize({
     host: process.env.AZURE_MYSQL_HOST,
@@ -11,7 +12,7 @@ const sequelize = new Sequelize({
     dialect: 'mysql',
     dialectOptions: {
         ssl: {
-            ca: fs.readFileSync(__dirname + '../BaltimoreCyberTrustRoot.crt.pem'),
+            ca: fs.readFileSync(join(__dirname, '../DigiCertGlobalRootCA.crt.pem')),
         }
     }
 });
