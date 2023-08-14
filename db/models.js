@@ -3,14 +3,15 @@ import CA from "../DigiCertGlobalRootCA.crt.pem";
 const {Sequelize, DataTypes} = require("sequelize");
 
 const sequelize = new Sequelize({
-    host: process.env.AZURE_MYSQL_HOST || 'localhost',
+    host: process.env.AZURE_MYSQL_HOST,
+    port: process.env.AZURE_MYSQL_PORT,
     username: process.env.AZURE_MYSQL_USERNAME,
     password: process.env.AZURE_MYSQL_PASSWORD,
     database: process.env.AZURE_MYSQL_DATABASE,
     dialect: 'mysql',
     dialectOptions: {
         ssl: {
-            ca: CA
+            ca: CA,
         }
     }
 });
