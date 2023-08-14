@@ -3,18 +3,18 @@ html
     head
         title= title
         link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src='/javascripts/navbar.js', defer='defer', type='module')
         block scripts
     body
         nav
             div.left
-                if user
-                    h1.bob
+                h1#logo.bob
+                    if user
                         span#healthy Healthy
                         span#challenges Challenges,
                         br
                         span#playing-as playing as #{user.username}
-                else
-                    h1.bob
+                    else
                         span#healthy Healthy
                         span#challenges Challenges
             div.right

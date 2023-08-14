@@ -252,3 +252,14 @@ h1 {
     font-size: 3em;
     margin: 0;
 }
+
+#logo {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+#logo:hover {
+    cursor: pointer;
+}
