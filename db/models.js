@@ -12,7 +12,7 @@ const sequelize = new Sequelize({
     password: process.env.AZURE_MYSQL_PASSWORD,
     database: process.env.AZURE_MYSQL_DATABASE,
     dialect: 'mysql',
-    ssl: process.env.AZURE_MYSQL_SSL === true,
+    ssl: process.env.AZURE_MYSQL_SSL === "true",
 });
 
 if (sequelize.options.ssl) {
