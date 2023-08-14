@@ -1,4 +1,4 @@
-import CA from "../DigiCertGlobalRootCA.crt.pem";
+const fs = require('fs');
 
 const {Sequelize, DataTypes} = require("sequelize");
 
@@ -11,7 +11,7 @@ const sequelize = new Sequelize({
     dialect: 'mysql',
     dialectOptions: {
         ssl: {
-            ca: CA,
+            ca: fs.readFileSync(__dirname + '../BaltimoreCyberTrustRoot.crt.pem'),
         }
     }
 });
