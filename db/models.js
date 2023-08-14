@@ -6,10 +6,11 @@ const {join} = require("path");
 const sequelize = new Sequelize({
     host: process.env.AZURE_MYSQL_HOST,
     port: process.env.AZURE_MYSQL_PORT,
-    username: process.env.AZURE_MYSQL_USERNAME,
+    username: process.env.AZURE_MYSQL_USER,
     password: process.env.AZURE_MYSQL_PASSWORD,
     database: process.env.AZURE_MYSQL_DATABASE,
     dialect: 'mysql',
+    ssl: process.env.AZURE_MYSQL_SSL,
     dialectOptions: {
         ssl: {
             ca: fs.readFileSync(join(__dirname, '../DigiCertGlobalRootCA.crt.pem')),
