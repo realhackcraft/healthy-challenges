@@ -53,4 +53,4 @@ jobs:
           package: .
 
       - name: 'Run npm run bin/www'
-        run: npm run bin/www
+        run: npm run
