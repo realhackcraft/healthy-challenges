@@ -76,17 +76,6 @@ block scripts
             margin: 0;
         }
 
-        select {
-            width: 10em;
-            height: 2em;
-            font-size: 1.5em;
-            text-align: center;
-            border: none;
-            border-radius: 0.5em;
-            background: steelblue;
-            color: antiquewhite;
-        }
-
         input[type=submit] {
             width: 5em;
             height: 2em;
@@ -102,36 +91,74 @@ block scripts
             outline: 0;
         }
 
+        .float {
+            animation: 3s ease-out float;
+        }
+
+        .bob {
+            animation: 3s ease-out 0s infinite bob;
+        }
+
+        @keyframes bob {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            25% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30%);
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
 block content
     nav
         div.left
             if user
-                h1
+                h1.bob
                     span#healthy Healthy
-                    span#challenges Challenges
-                    span ,
+                    span#challenges Challenges,
                     br
                     span#playing-as playing as #{user.username}
             else
-                h1
+                h1.bob
                     span#healthy Healthy
                     span#challenges Challenges
         div.right
             if user
                 a.link(href='/leaderboard') Leaderboard
-            a.link(href='/account/login') Login
-            a.link(href='/account/register') Register
+            else
+                a.link(href='/account/login') Login
+                a.link(href='/account/register') Register
 
     main
-        h2 Welcome to Healthy Challenges!
+        h2.float Welcome to Healthy Challenges!
         h3#account-wrapper
             if !user
-                a.link Create an account to get started
+                a.link(href='/register') Create an account to get started
             else
                 form#challenge-form
-                    input(id='challenge-count', type='number', value='3')
+                    input(id='challenge-count', type='number', value='3', min='1', max='10')
 
                     select(id='challenge-type' name='challenge-type')
+                        option(value='select') Select Challenge Type
                         option(value='mental') Mental Challenge(s)
                         option(value='physical') Physical Challenge(s)
                         option(value='both') Mixed Challenge(s)

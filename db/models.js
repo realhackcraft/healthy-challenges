@@ -1,12 +1,18 @@
+import CA from "../DigiCertGlobalRootCA.crt.pem";
+
 const {Sequelize, DataTypes} = require("sequelize");
 
 const sequelize = new Sequelize({
-    host: '127.0.0.1',
-    port: 8889,
-    username: 'admin',
-    password: 'secretpassword',
+    host: process.env.DB_HOST || 'localhost',
+    username: process.env.DB_USERNAME || 'admin',
+    password: process.env.DB_PASSWORD || 'secretpassword',
     database: 'healthy-challenges',
     dialect: 'mysql',
+    dialectOptions: {
+        ssl: {
+            ca: CA
+        }
+    }
 });
 
 const User = sequelize.define('User', {

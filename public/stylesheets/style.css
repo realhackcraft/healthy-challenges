@@ -15,7 +15,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 5em;
+    margin-top: 15em;
     overflow: hidden;
 }
 
@@ -87,11 +87,19 @@ button {
     transition: all 0.5s ease-in-out;
 }
 
-.link:hover:not(:disabled) {
+.link:hover {
     background-position: 0;
 }
 
-.link:hover:not(:disabled)::before {
+.link:disabled {
+    background-position: 0;
+}
+
+.link:hover::before {
+    width: 100%;
+}
+
+.link:disabled::before {
     width: 100%;
 }
 
@@ -118,7 +126,7 @@ input[type='checkbox']:checked, input[type='radio']:checked {
     background: palegreen;
 }
 
-input[type='text'], input[type='password'] {
+input[type='text'], input[type='password'], input[type='number'] {
     font-size: 2rem;
     font-weight: 600;
     border: palevioletred 0.2em solid;
@@ -131,7 +139,20 @@ input[type='text'], input[type='password'] {
     transition: all 0.2s ease-in-out;
 }
 
-input[type='text']:focus, input[type='password']:focus {
+input[type='number']:hover {
+    background: palevioletred;
+    color: dodgerblue;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type='text']:focus, input[type='password']:focus, input[type='number']:focus {
     background: palevioletred;
     outline: none;
 }
@@ -155,4 +176,36 @@ input[type='submit']:hover {
     outline: none;
 }
 
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    width: 10em;
+    height: 2em;
+    font-size: 1.5em;
+    text-align: center;
+    border: none;
+    border-radius: 0.5em;
+    background: steelblue;
+    color: antiquewhite;
+    transition: all 0.2s ease-in-out;
+}
 
+select:focus {
+    outline: none;
+}
+
+select:hover {
+    background: palevioletred;
+    color: dodgerblue;
+    outline: none;
+}
+
+button {
+    font-size: 2rem;
+    font-weight: 600;
+    border-radius: 0.5em;
+    padding-right: 0.5em;
+    margin: 0.5em;
+}
