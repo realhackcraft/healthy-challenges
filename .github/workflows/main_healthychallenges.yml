@@ -3,7 +3,7 @@ name: Build and deploy Node.js app to Azure Web App - healthychallenges
 on:
   push:
     branches:
-      - main
+      - production
   workflow_dispatch:
 
 jobs:
