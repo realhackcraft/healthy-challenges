@@ -2,6 +2,8 @@ const fs = require('fs');
 
 const {Sequelize, DataTypes} = require("sequelize");
 const {join} = require("path");
+const dotenv = require('dotenv');
+dotenv.config();
 
 const sequelize = new Sequelize({
     host: process.env.AZURE_MYSQL_HOST,
@@ -10,13 +12,16 @@ const sequelize = new Sequelize({
     password: process.env.AZURE_MYSQL_PASSWORD,
     database: process.env.AZURE_MYSQL_DATABASE,
     dialect: 'mysql',
-    ssl: process.env.AZURE_MYSQL_SSL,
-    dialectOptions: {
+    ssl: process.env.AZURE_MYSQL_SSL === true,
+});
+
+if (sequelize.options.ssl) {
+    sequelize.options.dialectOptions = {
         ssl: {
             ca: fs.readFileSync(join(__dirname, '../DigiCertGlobalRootCA.crt.pem')),
         }
     }
-});
+}
 
 const User = sequelize.define('User', {
     id: {

@@ -7,6 +7,6 @@ if (startChallenge) {
         if (challengeType.value === 'select') {
             return;
         }
-        window.location.href = '/challenge/' + challengeType.value + '/' + challengeCount.value;
+        location.href = '/challenge/' + challengeType.value + '/' + challengeCount.value;
     });
 }
