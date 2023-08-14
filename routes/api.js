@@ -48,6 +48,7 @@ router.post('/login', async function (req, res, next) {
     const password = req.body.password;
 
     if (!username || !password) {
+        res.sendStatus(401);
         return;
     }
 
@@ -60,6 +61,7 @@ router.post('/login', async function (req, res, next) {
 
     if (existingUsers.length !== 1) {
         res.sendStatus(401);
+        return;
     }
 
     if (req.cookies.refreshToken) {

@@ -1,9 +1,17 @@
 const express = require('express');
 const {getTopUsers, getTopFriends} = require("../private/utils");
+const {decodeJwt} = require("jose");
+const {User} = require("../db/models");
 const router = express.Router();
 
 router.get('/', async function (req, res, next) {
-    res.render('leaderboard', {title: 'Leaderboard'});
+    const username = (await decodeJwt(req.cookies.accessToken)).username;
+    const user = await User.findOne({
+        where: {
+            username: username
+        }
+    });
+    res.render('leaderboard', {title: 'Leaderboard', user: user});
 });
 
 router.get('/topUsers', async function (req, res, next) {

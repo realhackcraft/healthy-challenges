@@ -5,4 +5,25 @@ html
         link(rel='stylesheet', href='/stylesheets/style.css')
         block scripts
     body
-        block content
+        nav
+            div.left
+                if user
+                    h1.bob
+                        span#healthy Healthy
+                        span#challenges Challenges,
+                        br
+                        span#playing-as playing as #{user.username}
+                else
+                    h1.bob
+                        span#healthy Healthy
+                        span#challenges Challenges
+            div.right
+                if user
+                    a.link(href='/leaderboard') Leaderboard
+                    a.link(href='/account/logout') Logout
+                else
+                    a.link(href='/account/login') Login
+                    a.link(href='/account/register') Register
+
+        main
+            block content
